@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { 
-  BrowserRouter as Router, 
-  Routes, 
-  Route, 
-  Navigate,
-  useLocation
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  createRoutesFromElements,
+  Outlet,
+  useLocation,
+  Navigate
 } from 'react-router-dom';
 import { Box } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -26,6 +28,7 @@ import Contact from './pages/Contact';
 import ManageRooms from './pages/admin/ManageRooms';
 import ManageAdmins from './pages/admin/ManageAdmins';
 import AdminSignup from './pages/admin/AdminSignup';
+import BookingConfirmation from './pages/BookingConfirmation';
 
 // Wrapper component to handle AOS refresh on route changes
 const AnimationWrapper = ({ children }) => {
@@ -36,6 +39,17 @@ const AnimationWrapper = ({ children }) => {
   }, [location.pathname]);
 
   return children;
+};
+
+// Root layout component that includes AnimationWrapper
+const RootLayout = () => {
+  return (
+    <AnimationWrapper>
+      <AuthProvider>
+        <Outlet />
+      </AuthProvider>
+    </AnimationWrapper>
+  );
 };
 
 function App() {
@@ -49,7 +63,6 @@ function App() {
       easing: 'ease-in-out',
     });
 
-    // Add event listeners for AOS refresh
     window.addEventListener('load', AOS.refresh);
     window.addEventListener('resize', AOS.refresh);
 
@@ -59,58 +72,61 @@ function App() {
     };
   }, []);
 
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<RootLayout />}>
+        {/* Admin Routes */}
+        <Route path="/admin">
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<AdminSignup />} />
+          <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+            <Route index element={<Dashboard />} />
+            <Route path="block-dates" element={<BlockDates />} />
+            <Route path="manage-rooms" element={<ManageRooms />} />
+            <Route path="manage-admins" element={<ManageAdmins />} />
+          </Route>
+        </Route>
+
+        {/* Public Routes */}
+        <Route path="/" element={
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              flexDirection: 'column',
+              minHeight: '100vh',
+              bgcolor: 'background.default'
+            }}
+          >
+            <Navbar />
+            <Box component="main" sx={{ flexGrow: 1 }}>
+              <Outlet />
+            </Box>
+            <Footer />
+          </Box>
+        }>
+          <Route index element={<Home />} />
+          <Route path="rooms" element={<Rooms />} />
+          <Route path="rooms/:id" element={<RoomDetail />} />
+          <Route path="booking" element={<Navigate to="/rooms" replace />} />
+          <Route path="booking/:id" element={<Booking />} />
+          <Route path="booking-confirmation" element={<BookingConfirmation />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Route>
+    )
+  );
+
   return (
     <>
       <CssBaseline />
-      <Router>
-        <AuthProvider>
-          <AnimationWrapper>
-            <Routes>
-              {/* Admin Routes */}
-              <Route path="/admin/login" element={<Login />} />
-              <Route path="/admin/signup" element={<AdminSignup />} />
-              <Route path="/admin/*" element={
-                <ProtectedRoute>
-                  <AdminLayout>
-                    <Routes>
-                      <Route index element={<Dashboard />} />
-                      <Route path="block-dates" element={<BlockDates />} />
-                      <Route path="manage-rooms" element={<ManageRooms />} />
-                      <Route path="manage-admins" element={<ManageAdmins />} />
-                    </Routes>
-                  </AdminLayout>
-                </ProtectedRoute>
-              } />
-
-              {/* Public Routes */}
-              <Route path="/*" element={
-                <Box 
-                  sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    minHeight: '100vh',
-                    bgcolor: 'background.default'
-                  }}
-                >
-                  <Navbar />
-                  <Box component="main" sx={{ flexGrow: 1 }}>
-                    <Routes>
-                      <Route index element={<Home />} />
-                      <Route path="rooms" element={<Rooms />} />
-                      <Route path="rooms/:id" element={<RoomDetail />} />
-                      <Route path="booking/:id" element={<Booking />} />
-                      <Route path="contact" element={<Contact />} />
-                    </Routes>
-                  </Box>
-                  <Footer />
-                </Box>
-              } />
-            </Routes>
-          </AnimationWrapper>
-        </AuthProvider>
-      </Router>
-
-      <style jsx global>{`
+      <RouterProvider 
+        router={router} 
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}
+      />
+      <style jsx="true" global="true">{`
         [data-aos] {
           pointer-events: none;
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Drawer, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Typography, IconButton, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import EventBusyIcon from '@mui/icons-material/EventBusy';
 import HomeIcon from '@mui/icons-material/Home';
@@ -11,7 +11,7 @@ import GroupIcon from '@mui/icons-material/Group';
 
 const drawerWidth = 240;
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
 
@@ -101,7 +101,7 @@ const AdminLayout = ({ children }) => {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        {children}
+        <Outlet />
       </Box>
     </Box>
   );

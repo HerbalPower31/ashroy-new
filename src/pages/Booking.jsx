@@ -79,24 +79,22 @@ const Booking = () => {
       return;
     }
 
-    // Here you would typically send the booking data to your backend
-    console.log('Booking Data:', {
+    const bookingData = {
       roomId: room.id,
+      roomName: room.name,
       dates: {
-        checkIn: format(dateRange.startDate, 'yyyy-MM-dd'),
-        checkOut: format(dateRange.endDate, 'yyyy-MM-dd')
+        startDate: dateRange.startDate,
+        endDate: dateRange.endDate
       },
       ...formData
-    });
+    };
 
-    // Navigate to a confirmation page or show success message
+    // Here you would typically send the booking data to your backend
+    console.log('Booking Data:', bookingData);
+
+    // Navigate to confirmation page with complete booking data
     navigate('/booking-confirmation', { 
-      state: { 
-        roomName: room.name,
-        checkIn: format(dateRange.startDate, 'dd MMM yyyy'),
-        checkOut: format(dateRange.endDate, 'dd MMM yyyy'),
-        guestName: formData.name
-      }
+      state: { bookingData }
     });
   };
 

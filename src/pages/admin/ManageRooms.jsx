@@ -433,20 +433,24 @@ const ManageRooms = () => {
                       actionIcon={
                         <Box sx={{ display: 'flex', gap: 1, pr: 1 }}>
                           <Tooltip title="Move Up">
-                            <IconButton
-                              onClick={() => handleImageOrderChange(index, 'up')}
-                              disabled={index === 0}
-                            >
-                              <ArrowUpwardIcon sx={{ color: 'white' }} />
-                            </IconButton>
+                            <span>
+                              <IconButton
+                                onClick={() => handleImageOrderChange(index, 'up')}
+                                disabled={index === 0}
+                              >
+                                <ArrowUpwardIcon sx={{ color: 'white' }} />
+                              </IconButton>
+                            </span>
                           </Tooltip>
                           <Tooltip title="Move Down">
-                            <IconButton
-                              onClick={() => handleImageOrderChange(index, 'down')}
-                              disabled={index === roomData.images.length - 1}
-                            >
-                              <ArrowDownwardIcon sx={{ color: 'white' }} />
-                            </IconButton>
+                            <span>
+                              <IconButton
+                                onClick={() => handleImageOrderChange(index, 'down')}
+                                disabled={index === roomData.images.length - 1}
+                              >
+                                <ArrowDownwardIcon sx={{ color: 'white' }} />
+                              </IconButton>
+                            </span>
                           </Tooltip>
                           <Tooltip title="Remove">
                             <IconButton

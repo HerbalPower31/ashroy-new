@@ -46,10 +46,11 @@ const Rooms = () => {
               <Box sx={{
                 height: 240,
                 overflow: 'hidden',
-                position: 'relative'
-              }}>
+                position: 'relative',
+                cursor: 'pointer'
+              }} onClick={() => handleRoomClick(room.id)}>
                 <img
-                  src={room.images[0]}
+                  src={room.images[0].url}
                   alt={room.name}
                   style={{
                     width: '100%',
@@ -59,7 +60,7 @@ const Rooms = () => {
                   }}
                 />
               </Box>
-              <Box sx={{ p: 3 }}>
+              <Box sx={{ p: 3 }} onClick={() => handleRoomClick(room.id)} style={{ cursor: 'pointer' }}>
                 <Typography variant="h5" component="h2" gutterBottom>
                   {room.name}
                 </Typography>
