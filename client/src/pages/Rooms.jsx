@@ -52,11 +52,18 @@ const Rooms = () => {
                 <img
                   src={room.images[0].url}
                   alt={room.name}
+                  loading="lazy"
+                  width="400"
+                  height="240"
                   style={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
                     transition: 'transform 0.3s ease-in-out',
+                    filter: 'blur(0)',
+                    '&[loading]': {
+                      filter: 'blur(10px)'
+                    }
                   }}
                 />
               </Box>

@@ -27,6 +27,8 @@ const Home = () => {
         backgroundImage: 'url(https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#f5f5f5', // Placeholder color while loading
         '&::before': {
           content: '""',
           position: 'absolute',
@@ -203,13 +205,19 @@ const Home = () => {
             <Grid item xs={12} md={6} data-aos="fade-left" data-aos-delay="200">
               <Box
                 component="img"
-                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
+                src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=90&fm=webp"
                 alt="Ashroy Homestay"
+                loading="eager"
+                width="1200"
+                height="800"
                 sx={{
                   width: '100%',
                   height: 'auto',
                   borderRadius: 2,
                   boxShadow: 3,
+                  objectFit: 'cover',
+                  display: 'block',
+                  backgroundColor: '#f5f5f5'
                 }}
               />
             </Grid>
@@ -228,6 +236,9 @@ const Home = () => {
               component="img"
               src="/images/map-screenshot.jpg"
               alt="Ashroy Homestay Location"
+              loading="lazy"
+              width="800"
+              height="600"
               sx={{
                 width: '100%',
                 height: 'auto',
@@ -239,6 +250,7 @@ const Home = () => {
                   transform: 'scale(1.02)',
                   boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
                 },
+                backgroundColor: '#f5f5f5'
               }}
               onClick={() => window.open('https://maps.app.goo.gl/SiGR4ndfo4WSaPra9?g_st=iw', '_blank')}
             />
@@ -304,6 +316,8 @@ const Home = () => {
           backgroundImage: 'url(https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#f5f5f5', // Placeholder color while loading
           position: 'relative',
           '&::before': {
             content: '""',

@@ -1,32 +1,17 @@
 {
-  "name": "ashroy-homestay",
-  "private": true,
-  "version": "0.1.0",
-  "type": "module",
+  "name": "ashroy-homestay-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for Ashroy Homestay application",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "cd server && npm start",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm start",
+    "dev": "concurrently --kill-others-on-fail --handle-input \"npm run dev:client\" \"npm run dev:server\"",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@fontsource/poppins": "^5.0.8",
-    "@mui/icons-material": "^5.16.12",
-    "@mui/material": "^5.16.12",
-    "@mui/x-date-pickers": "^6.18.6",
-    "aos": "^2.3.4",
-    "date-fns": "^3.6.0",
-    "react": "^18.2.0",
-    "react-big-calendar": "^1.17.1",
-    "react-date-range": "^2.0.1",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^7.1.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react": "^4.2.1",
-    "vite": "^5.0.8"
+    "concurrently": "^8.2.2"
   }
 }

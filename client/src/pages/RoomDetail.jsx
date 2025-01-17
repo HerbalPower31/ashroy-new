@@ -47,13 +47,19 @@ const RoomDetail = () => {
             component="img"
             src={room.images[selectedImage].url}
             alt={room.images[selectedImage].caption}
+            loading="lazy"
             sx={{
               width: '100%',
               height: 400,
               objectFit: 'cover',
               borderRadius: 2,
               boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
-              mb: 2
+              mb: 2,
+              filter: 'blur(0)',
+              transition: 'filter 0.3s ease-in-out',
+              '&[loading]': {
+                filter: 'blur(10px)'
+              }
             }}
           />
           {/* Thumbnail Gallery */}
@@ -82,11 +88,15 @@ const RoomDetail = () => {
                   src={image.url}
                   alt={image.caption}
                   loading="lazy"
+                  width="200"
+                  height="100"
                   style={{
                     height: '100%',
                     objectFit: 'cover',
                     borderRadius: 1,
-                    border: selectedImage === index ? '2px solid #0A4D3C' : 'none'
+                    border: selectedImage === index ? '2px solid #0A4D3C' : 'none',
+                    filter: 'blur(0)',
+                    transition: 'filter 0.3s ease-in-out',
                   }}
                 />
               </ImageListItem>
